@@ -23,6 +23,10 @@ PADAVAN_TOOLCHAIN_URL="https://gitlab.com/api/v4/projects/hadzhioglu%2Fpadavan-n
 #sudo apt-get update && sudo apt-get install -y gcc-multilib g++-multilib
 
 # Хак: принудительно обновляем окружение внутри Docker-контейнера перед компиляцией
-if [ ! -f /tmp/multilib_installed ]; then
-    sudo apt-get update && sudo apt-get install -y gcc-multilib g++-multilib && touch /tmp/multilib_installed
-fi
+#if [ ! -f /tmp/multilib_installed ]; then
+#    sudo apt-get update && sudo apt-get install -y gcc-multilib g++-multilib && touch /tmp/multilib_installed
+#fi
+
+# Команда выполнится от root без sudo и установит multilib внутри контейнера
+_init_multilib=$(apt-get update && apt-get install -y gcc-multilib g++-multilib)
+
